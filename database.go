@@ -8,7 +8,6 @@ import (
 )
 
 func connectDB() (*sql.DB, error) {
-	// connStr := "user=admin dbname=todo.db sslmode=disable password=adminpass"
 	connStr := "host=localhost port=5432 user=admin dbname=todo sslmode=disable password=pass"
 	db, err := sql.Open("pgx", connStr)
 	if err != nil {

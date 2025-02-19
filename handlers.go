@@ -7,21 +7,17 @@ import (
 )
 
 func createTask(c *fiber.Ctx) error {
-	// Выводим сырое тело запроса для отладки
 	rawBody := c.Body()
 	fmt.Println("Raw Body:", string(rawBody))
 
 	task := new(Task)
 	if err := c.BodyParser(task); err != nil {
-		// Выводим ошибку парсинга
 		fmt.Println("BodyParser Error:", err)
 		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	// Выводим распарсенные данные
 	fmt.Printf("Parsed Task: %+v\n", task)
 
-	// Остальной код для создания задачи
 	db, err := connectDB()
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
@@ -97,6 +93,6 @@ func deleteTask(c *fiber.Ctx) error {
 		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	c.SendStatus(204) // Отправляем статус 204 No Content
-	return nil        // Возвращаем nil, так как ошибок нет
+	c.SendStatus(204)
+	return nil
 }
